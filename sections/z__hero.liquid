@@ -1,0 +1,70 @@
+<div class="h-full flex items-center">
+  {% if section.settings.title != blank or section.settings.subtitle != blank %}
+    <div class="container max-w-1280 mx-auto px-4">
+      {% if section.settings.title != blank %}
+        <p class="text-center text-4xl font-bold text-gray-950 lg:text-left lg:text-6xl">
+          {{ section.settings.title }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <p class="mt-2 text-center text-lg font-medium text-gray-600 lg:text-left lg:text-2xl">
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{% style %}
+  .hf__hero {
+    height: calc(100vh - 6.4rem);
+    background-repeat: no-repeat;
+    background-size: 50vh;
+    background-position: right -8vh bottom -3vh;
+    background-image: url({{ section.settings.bg_image | image_url: width: 1600 }});
+  }
+
+  @media (min-width: 990px) {
+    .hf__hero {
+      background-size: 50vw;
+      background-position: right -8vw bottom -3vw;
+    }
+  }
+{% endstyle %}
+
+{% comment %}
+  https://shopify.dev/docs/themes/architecture/sections
+  https://shopify.dev/docs/themes/architecture/settings/input-settings
+  https://shopify.dev/docs/api/liquid/filters
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "class": "hf__hero",
+  "presets": [{ "name": "Hero" }],
+  "settings": [
+    {
+      "label": "Title",
+      "id": "title",
+      "type": "text"
+    },
+    {
+      "label": "Sub Title",
+      "id": "subtitle",
+      "type": "text"
+    },
+    {
+      "label": "Background Image",
+      "id": "bg_image",
+      "type": "image_picker"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["*"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+<div class="max-w-1280 container mx-auto px-4 pb-8 pt-12 text-gray-950">
+  <div class="max-h-12 flex justify-center gap-x-6">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'logo' %}
+          {% if block.settings.logo != blank %}
+            <img src="{{ block.settings.logo | image_url: width: 1600 }}">
+          {% endif %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+
+  {% if section.settings.subtitle != blank %}
+    <div class="mt-2 text-center text-xl">
+      {{ section.settings.subtitle }}
+    </div>
+  {% endif %}
+</div>
+
+{% style %}
+  img {
+    width: {{ section.settings.logo_width }}rem;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Logo Title",
+  "tag": "section",
+  "presets": [{ "name": "Logo Title" }],
+  "settings": [
+    {
+      "label": "Sub Title",
+      "id": "subtitle",
+      "type": "richtext"
+    },
+    {
+      "label": "Logo Width",
+      "id": "logo_width",
+      "type": "range",
+      "min": 10,
+      "max": 20,
+      "step": 0.1,
+      "unit": "rem",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Logo",
+      "type": "logo",
+      "settings": [
+        {
+          "label": "Logo",
+          "id": "logo",
+          "type": "image_picker"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["*"]
+  }
+}
+{% endschema %}
